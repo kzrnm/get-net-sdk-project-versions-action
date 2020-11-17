@@ -1,6 +1,9 @@
 name: "get-net-sdk-project-versions-action"
 description: "get .NET SDK project version from csproj/vbproj. "
 author: "naminodarie"
+branding:
+  icon: trending-up
+  color: purple
 inputs:
   proj-path:
     required: true

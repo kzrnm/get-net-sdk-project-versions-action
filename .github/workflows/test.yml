@@ -20,5 +20,14 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: ./
+        id: get-version
         with:
-          proj-path: __tests__/testdata/version.xml
+          proj-path: __tests__/testdata/all.xml
+
+      - run: test "${{steps.get-version.outputs.version}}" != "2.0.0-beta.1"
+      - run: test "${{steps.get-version.outputs.version-prefix}}" != "2.0.0"
+      - run: test "${{steps.get-version.outputs.version-suffix}}" != "beta.1"
+      - run: test "${{steps.get-version.outputs.package-version}}" != "2.0.0-beta-1.1"
+      - run: test "${{steps.get-version.outputs.assembly-version}}" != "2.0.0.227"
+      - run: test "${{steps.get-version.outputs.file-version}}" != "2.0.0.21"
+      - run: test "${{steps.get-version.outputs.informational-version}}" != "v2 beta"

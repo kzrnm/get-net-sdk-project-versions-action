@@ -1,6 +1,9 @@
 # Get .NET SDK Project Versions
 
 This action gets versions from csproj/vbproj.
+
+![test](https://github.com/naminodarie/get-net-sdk-project-versions-action/workflows/build-test/badge.svg?branch=master)
+
 ## Input
 
 ### `proj-path`

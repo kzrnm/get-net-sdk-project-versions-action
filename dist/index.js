@@ -106,7 +106,7 @@ function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const projPath = core.getInput('proj-path');
-            core.debug(`proj-path: ${projPath}`);
+            core.debug(`proj-path=${projPath}`);
             const xmlText = yield fs_1.promises.readFile(projPath, 'utf-8');
             const doc = new DocumentWrapper(new xmldom_1.DOMParser().parseFromString(xmlText, 'text/xml').documentElement);
             let versionPrefix = doc.getLastText('VersionPrefix');

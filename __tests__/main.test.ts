@@ -6,10 +6,15 @@ import * as os from 'os'
 function run(filename: string): string[] {
   process.env['INPUT_PROJ-PATH'] = path.join(__dirname, 'testdata', filename)
   const ip = path.join(__dirname, '..', 'lib', 'main.js')
-  const options: cp.ExecSyncOptions = {
-    env: process.env
+  const options: cp.ExecSyncOptionsWithStringEncoding = {
+    env: process.env,
+    encoding: 'utf-8'
   }
-  return cp.execSync(`node ${ip}`, options).toString().split(os.EOL)
+  const exec = cp.spawnSync('node', [ip], options)
+  if (exec.status != 0) {
+    console.log(exec)
+  }
+  return exec.stdout.split(os.EOL)
 }
 
 test('Empty', () => {

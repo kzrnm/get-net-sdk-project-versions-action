@@ -4,11 +4,7 @@ import * as path from 'path'
 import * as os from 'os'
 
 function run(filename: string): string[] {
-  process.env['INPUT_PROJ-PATH'] = path.join(
-    __dirname,
-    'testdata',
-    filename
-  )
+  process.env['INPUT_PROJ-PATH'] = path.join(__dirname, 'testdata', filename)
   const ip = path.join(__dirname, '..', 'lib', 'main.js')
   const options: cp.ExecSyncOptions = {
     env: process.env
@@ -25,7 +21,7 @@ test('Empty', () => {
       '::set-output name=package-version::1.0.0',
       '::set-output name=assembly-version::1.0.0',
       '::set-output name=file-version::1.0.0',
-      '::set-output name=informational-version::1.0.0',
+      '::set-output name=informational-version::1.0.0'
     ])
   )
 })
@@ -39,7 +35,7 @@ test('Verson', () => {
       '::set-output name=package-version::2.0.0-beta.1',
       '::set-output name=assembly-version::2.0.0',
       '::set-output name=file-version::2.0.0',
-      '::set-output name=informational-version::2.0.0-beta.1',
+      '::set-output name=informational-version::2.0.0-beta.1'
     ])
   )
 })
@@ -53,7 +49,7 @@ test('VersonPrefix', () => {
       '::set-output name=package-version::3.4.2',
       '::set-output name=assembly-version::3.4.2',
       '::set-output name=file-version::3.4.2',
-      '::set-output name=informational-version::3.4.2',
+      '::set-output name=informational-version::3.4.2'
     ])
   )
 })
@@ -67,7 +63,7 @@ test('VersonSuffix', () => {
       '::set-output name=package-version::1.0.0-alpha.2',
       '::set-output name=assembly-version::1.0.0',
       '::set-output name=file-version::1.0.0',
-      '::set-output name=informational-version::1.0.0-alpha.2',
+      '::set-output name=informational-version::1.0.0-alpha.2'
     ])
   )
 })
@@ -81,7 +77,7 @@ test('VersonPrefix && VersonSuffix', () => {
       '::set-output name=package-version::2.0.0-beta.1',
       '::set-output name=assembly-version::2.0.0',
       '::set-output name=file-version::2.0.0',
-      '::set-output name=informational-version::2.0.0-beta.1',
+      '::set-output name=informational-version::2.0.0-beta.1'
     ])
   )
 })
@@ -95,12 +91,10 @@ test('Verson && VersonPrefix && VersonSuffix', () => {
       '::set-output name=package-version::2.0.0-beta.1',
       '::set-output name=assembly-version::2.0.0',
       '::set-output name=file-version::2.0.0',
-      '::set-output name=informational-version::2.0.0-beta.1',
+      '::set-output name=informational-version::2.0.0-beta.1'
     ])
   )
 })
-
-
 
 test('PackageVersion', () => {
   expect(run('package_version.xml')).toEqual(
@@ -111,7 +105,7 @@ test('PackageVersion', () => {
       '::set-output name=package-version::2.0.0-beta-1.1',
       '::set-output name=assembly-version::2.0.0',
       '::set-output name=file-version::2.0.0',
-      '::set-output name=informational-version::2.0.0-beta.1',
+      '::set-output name=informational-version::2.0.0-beta.1'
     ])
   )
 })
@@ -125,7 +119,7 @@ test('AssemblyVersion', () => {
       '::set-output name=package-version::2.0.0-beta.1',
       '::set-output name=assembly-version::2.0.0.227',
       '::set-output name=file-version::2.0.0.227',
-      '::set-output name=informational-version::2.0.0-beta.1',
+      '::set-output name=informational-version::2.0.0-beta.1'
     ])
   )
 })
@@ -139,7 +133,7 @@ test('FileVersion', () => {
       '::set-output name=package-version::2.0.0-beta.1',
       '::set-output name=assembly-version::2.0.0',
       '::set-output name=file-version::2.0.0.21',
-      '::set-output name=informational-version::2.0.0-beta.1',
+      '::set-output name=informational-version::2.0.0-beta.1'
     ])
   )
 })
@@ -153,7 +147,7 @@ test('InformationalVersion', () => {
       '::set-output name=package-version::2.0.0-beta.1',
       '::set-output name=assembly-version::2.0.0',
       '::set-output name=file-version::2.0.0',
-      '::set-output name=informational-version::v2 beta',
+      '::set-output name=informational-version::v2 beta'
     ])
   )
 })

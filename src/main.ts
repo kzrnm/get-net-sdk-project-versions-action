@@ -1,6 +1,6 @@
 import * as core from '@actions/core'
-import { promises as fs } from 'fs'
-import { DOMParser } from 'xmldom'
+import {promises as fs} from 'fs'
+import {DOMParser} from 'xmldom'
 
 class DocumentWrapper {
   private docElement: HTMLElement
@@ -13,13 +13,14 @@ class DocumentWrapper {
   }
 }
 
-
 async function run(): Promise<void> {
   try {
     const projPath = core.getInput('proj-path')
     core.debug(`proj-path: ${projPath}`)
     const xmlText = await fs.readFile(projPath, 'utf-8')
-    const doc = new DocumentWrapper(new DOMParser().parseFromString(xmlText, 'text/xml').documentElement)
+    const doc = new DocumentWrapper(
+      new DOMParser().parseFromString(xmlText, 'text/xml').documentElement
+    )
 
     let versionPrefix = doc.getLastText('VersionPrefix')
     let versionSuffix = doc.getLastText('VersionSuffix')

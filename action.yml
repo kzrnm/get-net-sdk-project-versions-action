@@ -1,11 +1,25 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: "Get .NET SDK Project Versions"
+description: "get .NET SDK version project from csproj/vbproj. "
+author: "naminodarie"
 inputs:
-  milliseconds: # change this
+  proj-path:
     required: true
-    description: 'input description here'
-    default: 'default value if applicable'
+    description: "csproj/vbproj path"
+outputs:
+  version:
+    description: "version"
+  version-prefix:
+    description: "version prefix"
+  version-suffix:
+    description: "version suffix"
+  package-version:
+    description: "nuget package version"
+  assembly-version:
+    description: "assembly version"
+  file-version:
+    description: "file version"
+  informational-version:
+    description: "informational version"
 runs:
-  using: 'node12'
-  main: 'dist/index.js'
+  using: "node12"
+  main: "dist/index.js"

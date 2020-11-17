@@ -1,16 +1,17 @@
 import * as core from '@actions/core'
-import {wait} from './wait'
 
 async function run(): Promise<void> {
   try {
-    const ms: string = core.getInput('milliseconds')
-    core.debug(`Waiting ${ms} milliseconds ...`) // debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
+    const projPath = core.getInput('proj-path')
+    core.debug(`proj-path: ${projPath}`)
 
-    core.debug(new Date().toTimeString())
-    await wait(parseInt(ms, 10))
-    core.debug(new Date().toTimeString())
-
-    core.setOutput('time', new Date().toTimeString())
+    core.setOutput('version', projPath)
+    core.setOutput('version-prefix', projPath)
+    core.setOutput('version-suffix', projPath)
+    core.setOutput('package-version', projPath)
+    core.setOutput('assembly-version', projPath)
+    core.setOutput('file-version', projPath)
+    core.setOutput('informational-version', projPath)
   } catch (error) {
     core.setFailed(error.message)
   }

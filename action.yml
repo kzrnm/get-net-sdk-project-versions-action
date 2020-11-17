@@ -1,5 +1,5 @@
-name: "Get .NET SDK Project Versions"
-description: "get .NET SDK version project from csproj/vbproj. "
+name: "get-net-sdk-project-versions-action"
+description: "get .NET SDK project version from csproj/vbproj. "
 author: "naminodarie"
 inputs:
   proj-path:

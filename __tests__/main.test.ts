@@ -1,15 +1,14 @@
+import * as process from 'process'
 import * as cp from 'child_process'
 import * as path from 'path'
 import * as os from 'os'
 
 function run(filename: string): string[] {
+  process.env['INPUT_PROJ-PATH'] = path.join(__dirname, 'testdata', filename)
   const ip = path.join(__dirname, '..', 'lib', 'main.js')
   const options: cp.ExecSyncOptions = {
-    env: {
-      'INPUT_PROJ-PATH': path.join(__dirname, 'testdata', filename)
-    }
+    env: process.env
   }
-  cp.exec(`node ${ip}`)
   return cp.execSync(`node ${ip}`, options).toString().split(os.EOL)
 }
 

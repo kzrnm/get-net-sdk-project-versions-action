@@ -93,6 +93,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const core = __importStar(__webpack_require__(186));
 const fs_1 = __webpack_require__(747);
 const xmldom_1 = __webpack_require__(286);
+function put(name, value) {
+    core.info(`${name}: ${value}`);
+    core.setOutput(name, value);
+}
 class DocumentWrapper {
     constructor(docElement) {
         this.docElement = docElement;
@@ -132,6 +136,7 @@ function run() {
                 }
                 else {
                     version = versionPrefix;
+                    versionSuffix = '';
                 }
             }
             let packageVersion = doc.getLastText('PackageVersion');
@@ -150,13 +155,13 @@ function run() {
             if (!informationalVersion) {
                 informationalVersion = version;
             }
-            core.setOutput('version', version);
-            core.setOutput('version-prefix', versionPrefix);
-            core.setOutput('version-suffix', versionSuffix);
-            core.setOutput('package-version', packageVersion);
-            core.setOutput('assembly-version', assemblyVersion);
-            core.setOutput('file-version', fileVersion);
-            core.setOutput('informational-version', informationalVersion);
+            put('version', version);
+            put('version-prefix', versionPrefix);
+            put('version-suffix', versionSuffix);
+            put('package-version', packageVersion);
+            put('assembly-version', assemblyVersion);
+            put('file-version', fileVersion);
+            put('informational-version', informationalVersion);
         }
         catch (error) {
             core.setFailed(error.message);

@@ -2,6 +2,11 @@ import * as core from '@actions/core'
 import {promises as fs} from 'fs'
 import {DOMParser} from 'xmldom'
 
+function put(name: string, value: string): void {
+  core.info(`${name}: ${value}`)
+  core.setOutput(name, value)
+}
+
 class DocumentWrapper {
   private docElement: HTMLElement
   constructor(docElement: HTMLElement) {
@@ -44,6 +49,7 @@ async function run(): Promise<void> {
         version = `${versionPrefix}-${versionSuffix}`
       } else {
         version = versionPrefix
+        versionSuffix = ''
       }
     }
 
@@ -67,13 +73,13 @@ async function run(): Promise<void> {
       informationalVersion = version
     }
 
-    core.setOutput('version', version)
-    core.setOutput('version-prefix', versionPrefix)
-    core.setOutput('version-suffix', versionSuffix)
-    core.setOutput('package-version', packageVersion)
-    core.setOutput('assembly-version', assemblyVersion)
-    core.setOutput('file-version', fileVersion)
-    core.setOutput('informational-version', informationalVersion)
+    put('version', version)
+    put('version-prefix', versionPrefix)
+    put('version-suffix', versionSuffix)
+    put('package-version', packageVersion)
+    put('assembly-version', assemblyVersion)
+    put('file-version', fileVersion)
+    put('informational-version', informationalVersion)
   } catch (error) {
     core.setFailed(error.message)
   }

@@ -101,3 +101,9 @@ See the [actions tab](https://github.com/actions/typescript-action/actions) for 
 ## Usage:
 
 After testing you can [create a v1 tag](https://github.com/actions/toolkit/blob/master/docs/action-versioning.md) to reference the stable and latest V1 action
+
+## Reference
+
+- [Additions to the csproj format for .NET Core - .NET Core CLI | Microsoft Docs](https://docs.microsoft.com/en-us/dotnet/core/tools/csproj)
+- [NuGet Package Version Reference | Microsoft Docs](https://docs.microsoft.com/nuget/concepts/package-versioning)
+- [csproj のバージョン 管理 について - BEACHSIDE BLOG](https://blog.beachside.dev/entry/2019/06/06/190000) Japanese

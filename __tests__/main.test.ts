@@ -3,22 +3,28 @@ import * as cp from 'child_process'
 import * as path from 'path'
 import * as os from 'os'
 
-function run(filename: string): string[] {
+function run(filename: string): cp.SpawnSyncReturns<string> {
   process.env['INPUT_PROJ-PATH'] = path.join(__dirname, 'testdata', filename)
   const ip = path.join(__dirname, '..', 'lib', 'main.js')
   const options: cp.ExecSyncOptionsWithStringEncoding = {
     env: process.env,
     encoding: 'utf-8'
   }
-  const exec = cp.spawnSync('node', [ip], options)
-  if (exec.status != 0) {
-    console.log(exec)
-  }
-  return exec.stdout.split(os.EOL)
+  return cp.spawnSync('node', [ip], options)
 }
 
+test('NotFound', () => {
+  const exec = run('notfound.xml')
+  expect(exec.status).not.toStrictEqual(0)
+  expect(exec.stdout.split(os.EOL)).toEqual(expect.arrayContaining([
+    expect.stringMatching(/^::error::ENOENT: no such file or directory/)
+  ]))
+})
+
 test('Empty', () => {
-  expect(run('empty.xml')).toEqual(
+  const exec = run('empty.xml')
+  expect(exec.status).toStrictEqual(0)
+  expect(exec.stdout.split(os.EOL)).toEqual(
     expect.arrayContaining([
       '::set-output name=version::1.0.0',
       '::set-output name=version-prefix::1.0.0',
@@ -32,7 +38,9 @@ test('Empty', () => {
 })
 
 test('Verson', () => {
-  expect(run('version.xml')).toEqual(
+  const exec = run('version.xml')
+  expect(exec.status).toStrictEqual(0)
+  expect(exec.stdout.split(os.EOL)).toEqual(
     expect.arrayContaining([
       '::set-output name=version::2.0.0-beta.1',
       '::set-output name=version-prefix::2.0.0',
@@ -46,7 +54,9 @@ test('Verson', () => {
 })
 
 test('VersonPrefix', () => {
-  expect(run('version_prefix.xml')).toEqual(
+  const exec = run('version_prefix.xml')
+  expect(exec.status).toStrictEqual(0)
+  expect(exec.stdout.split(os.EOL)).toEqual(
     expect.arrayContaining([
       '::set-output name=version::3.4.2',
       '::set-output name=version-prefix::3.4.2',
@@ -60,7 +70,9 @@ test('VersonPrefix', () => {
 })
 
 test('VersonSuffix', () => {
-  expect(run('version_suffix.xml')).toEqual(
+  const exec = run('version_suffix.xml')
+  expect(exec.status).toStrictEqual(0)
+  expect(exec.stdout.split(os.EOL)).toEqual(
     expect.arrayContaining([
       '::set-output name=version::1.0.0-alpha.2',
       '::set-output name=version-prefix::1.0.0',
@@ -74,7 +86,9 @@ test('VersonSuffix', () => {
 })
 
 test('VersonPrefix && VersonSuffix', () => {
-  expect(run('version_prefix_suffix.xml')).toEqual(
+  const exec = run('version_prefix_suffix.xml')
+  expect(exec.status).toStrictEqual(0)
+  expect(exec.stdout.split(os.EOL)).toEqual(
     expect.arrayContaining([
       '::set-output name=version::2.0.0-beta.1',
       '::set-output name=version-prefix::2.0.0',
@@ -88,7 +102,9 @@ test('VersonPrefix && VersonSuffix', () => {
 })
 
 test('Verson && VersonPrefix && VersonSuffix', () => {
-  expect(run('version_with_prefix_suffix.xml')).toEqual(
+  const exec = run('version_with_prefix_suffix.xml')
+  expect(exec.status).toStrictEqual(0)
+  expect(exec.stdout.split(os.EOL)).toEqual(
     expect.arrayContaining([
       '::set-output name=version::2.0.0-beta.1',
       '::set-output name=version-prefix::2.0.0',
@@ -102,7 +118,9 @@ test('Verson && VersonPrefix && VersonSuffix', () => {
 })
 
 test('PackageVersion', () => {
-  expect(run('package_version.xml')).toEqual(
+  const exec = run('package_version.xml')
+  expect(exec.status).toStrictEqual(0)
+  expect(exec.stdout.split(os.EOL)).toEqual(
     expect.arrayContaining([
       '::set-output name=version::2.0.0-beta.1',
       '::set-output name=version-prefix::2.0.0',
@@ -116,7 +134,9 @@ test('PackageVersion', () => {
 })
 
 test('AssemblyVersion', () => {
-  expect(run('assembly_version.xml')).toEqual(
+  const exec = run('assembly_version.xml')
+  expect(exec.status).toStrictEqual(0)
+  expect(exec.stdout.split(os.EOL)).toEqual(
     expect.arrayContaining([
       '::set-output name=version::2.0.0-beta.1',
       '::set-output name=version-prefix::2.0.0',
@@ -130,7 +150,9 @@ test('AssemblyVersion', () => {
 })
 
 test('FileVersion', () => {
-  expect(run('file_version.xml')).toEqual(
+  const exec = run('file_version.xml')
+  expect(exec.status).toStrictEqual(0)
+  expect(exec.stdout.split(os.EOL)).toEqual(
     expect.arrayContaining([
       '::set-output name=version::2.0.0-beta.1',
       '::set-output name=version-prefix::2.0.0',
@@ -144,7 +166,9 @@ test('FileVersion', () => {
 })
 
 test('informational', () => {
-  expect(run('informational_version.xml')).toEqual(
+  const exec = run('informational_version.xml')
+  expect(exec.status).toStrictEqual(0)
+  expect(exec.stdout.split(os.EOL)).toEqual(
     expect.arrayContaining([
       '::set-output name=version::2.0.0-beta.1',
       '::set-output name=version-prefix::2.0.0',

@@ -16,9 +16,11 @@ function run(filename: string): cp.SpawnSyncReturns<string> {
 test('NotFound', () => {
   const exec = run('notfound.xml')
   expect(exec.status).not.toStrictEqual(0)
-  expect(exec.stdout.split(os.EOL)).toEqual(expect.arrayContaining([
-    expect.stringMatching(/^::error::ENOENT: no such file or directory/)
-  ]))
+  expect(exec.stdout.split(os.EOL)).toEqual(
+    expect.arrayContaining([
+      expect.stringMatching(/^::error::ENOENT: no such file or directory/)
+    ])
+  )
 })
 
 test('Empty', () => {

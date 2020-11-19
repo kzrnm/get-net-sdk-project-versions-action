@@ -18,7 +18,11 @@ test('NotFound', () => {
   expect(exec.status).not.toStrictEqual(0)
   expect(exec.stdout.split(os.EOL)).toEqual(
     expect.arrayContaining([
-      expect.stringMatching(/^::error::ENOENT: no such file or directory/)
+      `::error::no such file: '${path.join(
+        __dirname,
+        'testdata',
+        'notfound.xml'
+      )}'`
     ])
   )
 })
@@ -28,7 +32,11 @@ test('Json', () => {
   expect(exec.status).not.toStrictEqual(0)
   expect(exec.stdout.split(os.EOL)).toEqual(
     expect.arrayContaining([
-      expect.stringMatching(/^::error::failed to parse xml file:/)
+      `::error::failed to parse xml file: '${path.join(
+        __dirname,
+        'testdata',
+        'invalid.json'
+      )}'`
     ])
   )
 })

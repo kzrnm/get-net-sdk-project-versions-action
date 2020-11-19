@@ -9,12 +9,18 @@ function put(name: string, value: string): void {
 
 class DocumentWrapper {
   private docElement: HTMLElement
-  constructor(docElement: HTMLElement) {
-    this.docElement = docElement
+  constructor(xmlText: string) {
+    this.docElement = new DOMParser().parseFromString(
+      xmlText,
+      'text/xml'
+    ).documentElement
   }
   getLastText(tagName: string): string | null {
     const nodes = this.docElement.getElementsByTagName(tagName)
     return nodes.length > 0 ? nodes[nodes.length - 1].textContent : null
+  }
+  isValid(): boolean {
+    return !!this.docElement
   }
 }
 
@@ -23,9 +29,10 @@ async function run(): Promise<void> {
     const projPath = core.getInput('proj-path')
     core.debug(`proj-path=${projPath}`)
     const xmlText = await fs.readFile(projPath, 'utf-8')
-    const doc = new DocumentWrapper(
-      new DOMParser().parseFromString(xmlText, 'text/xml').documentElement
-    )
+    const doc = new DocumentWrapper(xmlText)
+    if (!doc.isValid()) {
+      core.setFailed('failed to parse xml file: ' + projPath)
+    }
 
     let versionPrefix = doc.getLastText('VersionPrefix')
     let versionSuffix = doc.getLastText('VersionSuffix')

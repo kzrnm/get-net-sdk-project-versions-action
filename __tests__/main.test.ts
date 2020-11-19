@@ -23,6 +23,16 @@ test('NotFound', () => {
   )
 })
 
+test('Json', () => {
+  const exec = run('invalid.json')
+  expect(exec.status).not.toStrictEqual(0)
+  expect(exec.stdout.split(os.EOL)).toEqual(
+    expect.arrayContaining([
+      expect.stringMatching(/^::error::failed to parse xml file:/)
+    ])
+  )
+})
+
 test('Empty', () => {
   const exec = run('empty.xml')
   expect(exec.status).toStrictEqual(0)

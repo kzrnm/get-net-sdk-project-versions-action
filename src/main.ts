@@ -1,6 +1,6 @@
 import * as core from '@actions/core'
-import { promises as fs } from 'fs'
-import { DOMParser } from 'xmldom'
+import {promises as fs} from 'fs'
+import {DOMParser} from 'xmldom'
 
 function put(name: string, value: string): void {
   core.info(`${name}: ${value}`)

@@ -1,0 +1,109 @@
+Empty:
+  filename: empty.xml
+  outputs:
+    version: 1.0.0
+    version-prefix: 1.0.0
+    version-suffix: ""
+    package-version: 1.0.0
+    assembly-version: 1.0.0
+    file-version: 1.0.0
+    informational-version: 1.0.0
+
+Verson:
+  filename: version.xml
+  outputs:
+    version: 2.0.0-beta.1
+    version-prefix: 2.0.0
+    version-suffix: beta.1
+    package-version: 2.0.0-beta.1
+    assembly-version: 2.0.0
+    file-version: 2.0.0
+    informational-version: 2.0.0-beta.1
+
+VersonPrefix:
+  filename: version_prefix.xml
+  outputs:
+    version: 3.4.2
+    version-prefix: 3.4.2
+    version-suffix: ""
+    package-version: 3.4.2
+    assembly-version: 3.4.2
+    file-version: 3.4.2
+    informational-version: 3.4.2
+
+VersonSuffix:
+  filename: version_suffix.xml
+  outputs:
+    version: 1.0.0-alpha.2
+    version-prefix: 1.0.0
+    version-suffix: alpha.2
+    package-version: 1.0.0-alpha.2
+    assembly-version: 1.0.0
+    file-version: 1.0.0
+    informational-version: 1.0.0-alpha.2
+
+VersonPrefix && VersonSuffix:
+  filename: version_prefix_suffix.xml
+  outputs:
+    version: 2.0.0-beta.1
+    version-prefix: 2.0.0
+    version-suffix: beta.1
+    package-version: 2.0.0-beta.1
+    assembly-version: 2.0.0
+    file-version: 2.0.0
+    informational-version: 2.0.0-beta.1
+
+Verson && VersonPrefix && VersonSuffix:
+  filename: version_with_prefix_suffix.xml
+  outputs:
+    version: 2.0.0-beta.1
+    version-prefix: 2.0.0
+    version-suffix: beta.1
+    package-version: 2.0.0-beta.1
+    assembly-version: 2.0.0
+    file-version: 2.0.0
+    informational-version: 2.0.0-beta.1
+
+PackageVersion:
+  filename: package_version.xml
+  outputs:
+    version: 2.0.0-beta.1
+    version-prefix: 2.0.0
+    version-suffix: beta.1
+    package-version: 2.0.0-beta-1.1
+    assembly-version: 2.0.0
+    file-version: 2.0.0
+    informational-version: 2.0.0-beta.1
+
+AssemblyVersion:
+  filename: assembly_version.xml
+  outputs:
+    version: 2.0.0-beta.1
+    version-prefix: 2.0.0
+    version-suffix: beta.1
+    package-version: 2.0.0-beta.1
+    assembly-version: 2.0.0.227
+    file-version: 2.0.0.227
+    informational-version: 2.0.0-beta.1
+
+FileVersion:
+  filename: file_version.xml
+  outputs:
+    version: 2.0.0-beta.1
+    version-prefix: 2.0.0
+    version-suffix: beta.1
+    package-version: 2.0.0-beta.1
+    assembly-version: 2.0.0
+    file-version: 2.0.0.21
+    informational-version: 2.0.0-beta.1
+
+Informational:
+  filename: informational_version.xml
+  outputs:
+    version: 2.0.0-beta.1
+    version-prefix: 2.0.0
+    version-suffix: beta.1
+    package-version: 2.0.0-beta.1
+    assembly-version: 2.0.0
+    file-version: 2.0.0
+    informational-version: v2 beta

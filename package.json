@@ -10,8 +10,9 @@
     "format-check": "prettier --check **/*.ts",
     "lint": "eslint src/**/*.ts",
     "package": "ncc build --minify --source-map --license licenses.txt",
+    "buildtest": "node __tests__/makeTest.js",
     "test": "jest",
-    "all": "npm run build && npm run format && npm run lint && npm run package && npm test"
+    "all": "npm run build && npm run format && npm run lint && npm run package && npm run buildtest && npm test"
   },
   "repository": {
     "type": "git",

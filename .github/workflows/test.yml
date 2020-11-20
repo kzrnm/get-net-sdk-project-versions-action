@@ -7,32 +7,153 @@ on:
       - "releases/*"
 
 jobs:
-  build: # make sure build/ci work properly
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - run: npm install
       - run: npm run all
-  test: # make sure the action works on a clean machine without building
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: ./
-        id: get-version
+        id: Empty
         with:
-          proj-path: __tests__/testdata/all.xml
+          proj-path: __tests__/testdata/empty.xml
+      - name: check Empty
+        run: |
+          test "${{steps.Empty.outputs.version}}" = "1.0.0" # version
+          test "${{steps.Empty.outputs.version-prefix}}" = "1.0.0" # version-prefix
+          test "${{steps.Empty.outputs.version-suffix}}" = "" # version-suffix
+          test "${{steps.Empty.outputs.package-version}}" = "1.0.0" # package-version
+          test "${{steps.Empty.outputs.assembly-version}}" = "1.0.0" # assembly-version
+          test "${{steps.Empty.outputs.file-version}}" = "1.0.0" # file-version
+          test "${{steps.Empty.outputs.informational-version}}" = "1.0.0" # informational-version
 
-      - name: version=2.0.0-beta.1
-        run: test "${{steps.get-version.outputs.version}}" = "2.0.0-beta.1"
-      - name: version-prefix=2.0.0
-        run: test "${{steps.get-version.outputs.version-prefix}}" = "2.0.0"
-      - name: version-suffix=beta.1
-        run: test "${{steps.get-version.outputs.version-suffix}}" = "beta.1"
-      - name: package-version=2.0.0-beta-1.1
-        run: test "${{steps.get-version.outputs.package-version}}" = "2.0.0-beta-1.1"
-      - name: assembly-version=2.0.0.227
-        run: test "${{steps.get-version.outputs.assembly-version}}" = "2.0.0.227"
-      - name: file-version=2.0.0.21
-        run: test "${{steps.get-version.outputs.file-version}}" = "2.0.0.21"
-      - name: informational-version=v2 beta
-        run: test "${{steps.get-version.outputs.informational-version}}" = "v2 beta"
+      - uses: ./
+        id: Verson
+        with:
+          proj-path: __tests__/testdata/version.xml
+      - name: check Verson
+        run: |
+          test "${{steps.Verson.outputs.version}}" = "2.0.0-beta.1" # version
+          test "${{steps.Verson.outputs.version-prefix}}" = "2.0.0" # version-prefix
+          test "${{steps.Verson.outputs.version-suffix}}" = "beta.1" # version-suffix
+          test "${{steps.Verson.outputs.package-version}}" = "2.0.0-beta.1" # package-version
+          test "${{steps.Verson.outputs.assembly-version}}" = "2.0.0" # assembly-version
+          test "${{steps.Verson.outputs.file-version}}" = "2.0.0" # file-version
+          test "${{steps.Verson.outputs.informational-version}}" = "2.0.0-beta.1" # informational-version
+
+      - uses: ./
+        id: VersonPrefix
+        with:
+          proj-path: __tests__/testdata/version_prefix.xml
+      - name: check VersonPrefix
+        run: |
+          test "${{steps.VersonPrefix.outputs.version}}" = "3.4.2" # version
+          test "${{steps.VersonPrefix.outputs.version-prefix}}" = "3.4.2" # version-prefix
+          test "${{steps.VersonPrefix.outputs.version-suffix}}" = "" # version-suffix
+          test "${{steps.VersonPrefix.outputs.package-version}}" = "3.4.2" # package-version
+          test "${{steps.VersonPrefix.outputs.assembly-version}}" = "3.4.2" # assembly-version
+          test "${{steps.VersonPrefix.outputs.file-version}}" = "3.4.2" # file-version
+          test "${{steps.VersonPrefix.outputs.informational-version}}" = "3.4.2" # informational-version
+
+      - uses: ./
+        id: VersonSuffix
+        with:
+          proj-path: __tests__/testdata/version_suffix.xml
+      - name: check VersonSuffix
+        run: |
+          test "${{steps.VersonSuffix.outputs.version}}" = "1.0.0-alpha.2" # version
+          test "${{steps.VersonSuffix.outputs.version-prefix}}" = "1.0.0" # version-prefix
+          test "${{steps.VersonSuffix.outputs.version-suffix}}" = "alpha.2" # version-suffix
+          test "${{steps.VersonSuffix.outputs.package-version}}" = "1.0.0-alpha.2" # package-version
+          test "${{steps.VersonSuffix.outputs.assembly-version}}" = "1.0.0" # assembly-version
+          test "${{steps.VersonSuffix.outputs.file-version}}" = "1.0.0" # file-version
+          test "${{steps.VersonSuffix.outputs.informational-version}}" = "1.0.0-alpha.2" # informational-version
+
+      - uses: ./
+        id: VersonPrefix-VersonSuffix
+        with:
+          proj-path: __tests__/testdata/version_prefix_suffix.xml
+      - name: check VersonPrefix-VersonSuffix
+        run: |
+          test "${{steps.VersonPrefix-VersonSuffix.outputs.version}}" = "2.0.0-beta.1" # version
+          test "${{steps.VersonPrefix-VersonSuffix.outputs.version-prefix}}" = "2.0.0" # version-prefix
+          test "${{steps.VersonPrefix-VersonSuffix.outputs.version-suffix}}" = "beta.1" # version-suffix
+          test "${{steps.VersonPrefix-VersonSuffix.outputs.package-version}}" = "2.0.0-beta.1" # package-version
+          test "${{steps.VersonPrefix-VersonSuffix.outputs.assembly-version}}" = "2.0.0" # assembly-version
+          test "${{steps.VersonPrefix-VersonSuffix.outputs.file-version}}" = "2.0.0" # file-version
+          test "${{steps.VersonPrefix-VersonSuffix.outputs.informational-version}}" = "2.0.0-beta.1" # informational-version
+
+      - uses: ./
+        id: Verson-VersonPrefix-VersonSuffix
+        with:
+          proj-path: __tests__/testdata/version_with_prefix_suffix.xml
+      - name: check Verson-VersonPrefix-VersonSuffix
+        run: |
+          test "${{steps.Verson-VersonPrefix-VersonSuffix.outputs.version}}" = "2.0.0-beta.1" # version
+          test "${{steps.Verson-VersonPrefix-VersonSuffix.outputs.version-prefix}}" = "2.0.0" # version-prefix
+          test "${{steps.Verson-VersonPrefix-VersonSuffix.outputs.version-suffix}}" = "beta.1" # version-suffix
+          test "${{steps.Verson-VersonPrefix-VersonSuffix.outputs.package-version}}" = "2.0.0-beta.1" # package-version
+          test "${{steps.Verson-VersonPrefix-VersonSuffix.outputs.assembly-version}}" = "2.0.0" # assembly-version
+          test "${{steps.Verson-VersonPrefix-VersonSuffix.outputs.file-version}}" = "2.0.0" # file-version
+          test "${{steps.Verson-VersonPrefix-VersonSuffix.outputs.informational-version}}" = "2.0.0-beta.1" # informational-version
+
+      - uses: ./
+        id: PackageVersion
+        with:
+          proj-path: __tests__/testdata/package_version.xml
+      - name: check PackageVersion
+        run: |
+          test "${{steps.PackageVersion.outputs.version}}" = "2.0.0-beta.1" # version
+          test "${{steps.PackageVersion.outputs.version-prefix}}" = "2.0.0" # version-prefix
+          test "${{steps.PackageVersion.outputs.version-suffix}}" = "beta.1" # version-suffix
+          test "${{steps.PackageVersion.outputs.package-version}}" = "2.0.0-beta-1.1" # package-version
+          test "${{steps.PackageVersion.outputs.assembly-version}}" = "2.0.0" # assembly-version
+          test "${{steps.PackageVersion.outputs.file-version}}" = "2.0.0" # file-version
+          test "${{steps.PackageVersion.outputs.informational-version}}" = "2.0.0-beta.1" # informational-version
+
+      - uses: ./
+        id: AssemblyVersion
+        with:
+          proj-path: __tests__/testdata/assembly_version.xml
+      - name: check AssemblyVersion
+        run: |
+          test "${{steps.AssemblyVersion.outputs.version}}" = "2.0.0-beta.1" # version
+          test "${{steps.AssemblyVersion.outputs.version-prefix}}" = "2.0.0" # version-prefix
+          test "${{steps.AssemblyVersion.outputs.version-suffix}}" = "beta.1" # version-suffix
+          test "${{steps.AssemblyVersion.outputs.package-version}}" = "2.0.0-beta.1" # package-version
+          test "${{steps.AssemblyVersion.outputs.assembly-version}}" = "2.0.0.227" # assembly-version
+          test "${{steps.AssemblyVersion.outputs.file-version}}" = "2.0.0.227" # file-version
+          test "${{steps.AssemblyVersion.outputs.informational-version}}" = "2.0.0-beta.1" # informational-version
+
+      - uses: ./
+        id: FileVersion
+        with:
+          proj-path: __tests__/testdata/file_version.xml
+      - name: check FileVersion
+        run: |
+          test "${{steps.FileVersion.outputs.version}}" = "2.0.0-beta.1" # version
+          test "${{steps.FileVersion.outputs.version-prefix}}" = "2.0.0" # version-prefix
+          test "${{steps.FileVersion.outputs.version-suffix}}" = "beta.1" # version-suffix
+          test "${{steps.FileVersion.outputs.package-version}}" = "2.0.0-beta.1" # package-version
+          test "${{steps.FileVersion.outputs.assembly-version}}" = "2.0.0" # assembly-version
+          test "${{steps.FileVersion.outputs.file-version}}" = "2.0.0.21" # file-version
+          test "${{steps.FileVersion.outputs.informational-version}}" = "2.0.0-beta.1" # informational-version
+
+      - uses: ./
+        id: Informational
+        with:
+          proj-path: __tests__/testdata/informational_version.xml
+      - name: check Informational
+        run: |
+          test "${{steps.Informational.outputs.version}}" = "2.0.0-beta.1" # version
+          test "${{steps.Informational.outputs.version-prefix}}" = "2.0.0" # version-prefix
+          test "${{steps.Informational.outputs.version-suffix}}" = "beta.1" # version-suffix
+          test "${{steps.Informational.outputs.package-version}}" = "2.0.0-beta.1" # package-version
+          test "${{steps.Informational.outputs.assembly-version}}" = "2.0.0" # assembly-version
+          test "${{steps.Informational.outputs.file-version}}" = "2.0.0" # file-version
+          test "${{steps.Informational.outputs.informational-version}}" = "v2 beta" # informational-version
+

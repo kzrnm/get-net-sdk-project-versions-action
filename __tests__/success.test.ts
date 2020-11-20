@@ -1,48 +1,8 @@
-import * as process from 'process'
-import * as cp from 'child_process'
-import * as path from 'path'
 import * as os from 'os'
-
-function run(filename: string): cp.SpawnSyncReturns<string> {
-  process.env['INPUT_PROJ-PATH'] = path.join(__dirname, 'testdata', filename)
-  const ip = path.join(__dirname, '..', 'lib', 'main.js')
-  const options: cp.ExecSyncOptionsWithStringEncoding = {
-    env: process.env,
-    encoding: 'utf-8'
-  }
-  return cp.spawnSync('node', [ip], options)
-}
-
-test('NotFound', () => {
-  const exec = run('notfound.xml')
-  expect(exec.status).not.toStrictEqual(0)
-  expect(exec.stdout.split(os.EOL)).toEqual(
-    expect.arrayContaining([
-      `::error::no such file: '${path.join(
-        __dirname,
-        'testdata',
-        'notfound.xml'
-      )}'`
-    ])
-  )
-})
-
-test('Json', () => {
-  const exec = run('invalid.json')
-  expect(exec.status).not.toStrictEqual(0)
-  expect(exec.stdout.split(os.EOL)).toEqual(
-    expect.arrayContaining([
-      `::error::failed to parse xml file: '${path.join(
-        __dirname,
-        'testdata',
-        'invalid.json'
-      )}'`
-    ])
-  )
-})
+import { run, getFilePath } from './util'
 
 test('Empty', () => {
-  const exec = run('empty.xml')
+  const exec = run(getFilePath('empty.xml'))
   expect(exec.status).toStrictEqual(0)
   expect(exec.stdout.split(os.EOL)).toEqual(
     expect.arrayContaining([
@@ -58,7 +18,7 @@ test('Empty', () => {
 })
 
 test('Verson', () => {
-  const exec = run('version.xml')
+  const exec = run(getFilePath('version.xml'))
   expect(exec.status).toStrictEqual(0)
   expect(exec.stdout.split(os.EOL)).toEqual(
     expect.arrayContaining([
@@ -74,7 +34,7 @@ test('Verson', () => {
 })
 
 test('VersonPrefix', () => {
-  const exec = run('version_prefix.xml')
+  const exec = run(getFilePath('version_prefix.xml'))
   expect(exec.status).toStrictEqual(0)
   expect(exec.stdout.split(os.EOL)).toEqual(
     expect.arrayContaining([
@@ -90,7 +50,7 @@ test('VersonPrefix', () => {
 })
 
 test('VersonSuffix', () => {
-  const exec = run('version_suffix.xml')
+  const exec = run(getFilePath('version_suffix.xml'))
   expect(exec.status).toStrictEqual(0)
   expect(exec.stdout.split(os.EOL)).toEqual(
     expect.arrayContaining([
@@ -106,7 +66,7 @@ test('VersonSuffix', () => {
 })
 
 test('VersonPrefix && VersonSuffix', () => {
-  const exec = run('version_prefix_suffix.xml')
+  const exec = run(getFilePath('version_prefix_suffix.xml'))
   expect(exec.status).toStrictEqual(0)
   expect(exec.stdout.split(os.EOL)).toEqual(
     expect.arrayContaining([
@@ -122,7 +82,7 @@ test('VersonPrefix && VersonSuffix', () => {
 })
 
 test('Verson && VersonPrefix && VersonSuffix', () => {
-  const exec = run('version_with_prefix_suffix.xml')
+  const exec = run(getFilePath('version_with_prefix_suffix.xml'))
   expect(exec.status).toStrictEqual(0)
   expect(exec.stdout.split(os.EOL)).toEqual(
     expect.arrayContaining([
@@ -138,7 +98,7 @@ test('Verson && VersonPrefix && VersonSuffix', () => {
 })
 
 test('PackageVersion', () => {
-  const exec = run('package_version.xml')
+  const exec = run(getFilePath('package_version.xml'))
   expect(exec.status).toStrictEqual(0)
   expect(exec.stdout.split(os.EOL)).toEqual(
     expect.arrayContaining([
@@ -154,7 +114,7 @@ test('PackageVersion', () => {
 })
 
 test('AssemblyVersion', () => {
-  const exec = run('assembly_version.xml')
+  const exec = run(getFilePath('assembly_version.xml'))
   expect(exec.status).toStrictEqual(0)
   expect(exec.stdout.split(os.EOL)).toEqual(
     expect.arrayContaining([
@@ -170,7 +130,7 @@ test('AssemblyVersion', () => {
 })
 
 test('FileVersion', () => {
-  const exec = run('file_version.xml')
+  const exec = run(getFilePath('file_version.xml'))
   expect(exec.status).toStrictEqual(0)
   expect(exec.stdout.split(os.EOL)).toEqual(
     expect.arrayContaining([
@@ -185,8 +145,8 @@ test('FileVersion', () => {
   )
 })
 
-test('informational', () => {
-  const exec = run('informational_version.xml')
+test('Informational', () => {
+  const exec = run(getFilePath('informational_version.xml'))
   expect(exec.status).toStrictEqual(0)
   expect(exec.stdout.split(os.EOL)).toEqual(
     expect.arrayContaining([
@@ -200,3 +160,4 @@ test('informational', () => {
     ])
   )
 })
+

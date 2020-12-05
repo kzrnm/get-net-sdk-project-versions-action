@@ -37,13 +37,14 @@ async function run(): Promise<void> {
   try {
     const projPath = core.getInput('proj-path')
     core.debug(`proj-path=${projPath}`)
-
+    let found = false
     const doc = await DocumentWrapper.createAsync(projPath)
     let versionPrefix = doc.getLastText('VersionPrefix')
     let versionSuffix = doc.getLastText('VersionSuffix')
     let version = doc.getLastText('Version')
 
     if (version) {
+      found = true
       const hyphenPos = version.indexOf('-')
       if (hyphenPos >= 0) {
         versionPrefix = version.substr(0, hyphenPos)
@@ -53,11 +54,14 @@ async function run(): Promise<void> {
         versionSuffix = ''
       }
     } else {
-      if (!versionPrefix) {
+      if (versionPrefix) {
+        found = true
+      } else {
         versionPrefix = '1.0.0'
       }
 
       if (versionSuffix) {
+        found = true
         version = `${versionPrefix}-${versionSuffix}`
       } else {
         version = versionPrefix
@@ -66,23 +70,35 @@ async function run(): Promise<void> {
     }
 
     let packageVersion = doc.getLastText('PackageVersion')
-    if (!packageVersion) {
+    if (packageVersion) {
+      found = true
+    } else {
       packageVersion = version
     }
 
     let assemblyVersion = doc.getLastText('AssemblyVersion')
-    if (!assemblyVersion) {
+    if (assemblyVersion) {
+      found = true
+    } else {
       assemblyVersion = versionPrefix
     }
 
     let fileVersion = doc.getLastText('FileVersion')
-    if (!fileVersion) {
+    if (fileVersion) {
+      found = true
+    } else {
       fileVersion = assemblyVersion
     }
 
     let informationalVersion = doc.getLastText('InformationalVersion')
-    if (!informationalVersion) {
+    if (informationalVersion) {
+      found = true
+    } else {
       informationalVersion = version
+    }
+
+    if (!found) {
+      throw new Error('Not found version tag')
     }
 
     put('version', version)

@@ -1,22 +1,6 @@
 import * as os from 'os'
 import { run, getFilePath } from './util'
 
-test('Empty', () => {
-  const exec = run(getFilePath('empty.xml'))
-  expect(exec.status).toStrictEqual(0)
-  expect(exec.stdout.split(os.EOL)).toEqual(
-    expect.arrayContaining([
-      '::set-output name=version::1.0.0',
-      '::set-output name=version-prefix::1.0.0',
-      '::set-output name=version-suffix::',
-      '::set-output name=package-version::1.0.0',
-      '::set-output name=assembly-version::1.0.0',
-      '::set-output name=file-version::1.0.0',
-      '::set-output name=informational-version::1.0.0'
-    ])
-  )
-})
-
 test('Verson', () => {
   const exec = run(getFilePath('version.xml'))
   expect(exec.status).toStrictEqual(0)

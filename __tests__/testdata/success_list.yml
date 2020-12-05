@@ -1,14 +1,3 @@
-Empty:
-  filename: empty.xml
-  outputs:
-    version: 1.0.0
-    version-prefix: 1.0.0
-    version-suffix: ""
-    package-version: 1.0.0
-    assembly-version: 1.0.0
-    file-version: 1.0.0
-    informational-version: 1.0.0
-
 Verson:
   filename: version.xml
   outputs:

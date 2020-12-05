@@ -2,6 +2,14 @@ import * as path from 'path'
 import * as os from 'os'
 import {run, getFilePath} from './util'
 
+test('Empty', () => {
+  const exec = run(getFilePath('empty.xml'))
+  expect(exec.status).not.toStrictEqual(0)
+  expect(exec.stdout.split(os.EOL)).toEqual(
+    expect.arrayContaining(['::error::Not found version tag'])
+  )
+})
+
 test('NotFound', () => {
   const exec = run(getFilePath('notfound.xml'))
   expect(exec.status).not.toStrictEqual(0)

@@ -18,20 +18,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: ./
-        id: Empty
-        with:
-          proj-path: __tests__/testdata/empty.xml
-      - name: check Empty
-        run: |
-          test "${{steps.Empty.outputs.version}}" = "1.0.0" # version
-          test "${{steps.Empty.outputs.version-prefix}}" = "1.0.0" # version-prefix
-          test "${{steps.Empty.outputs.version-suffix}}" = "" # version-suffix
-          test "${{steps.Empty.outputs.package-version}}" = "1.0.0" # package-version
-          test "${{steps.Empty.outputs.assembly-version}}" = "1.0.0" # assembly-version
-          test "${{steps.Empty.outputs.file-version}}" = "1.0.0" # file-version
-          test "${{steps.Empty.outputs.informational-version}}" = "1.0.0" # informational-version
-
-      - uses: ./
         id: Verson
         with:
           proj-path: __tests__/testdata/version.xml

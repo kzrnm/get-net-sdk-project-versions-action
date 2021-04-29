@@ -30,7 +30,7 @@
     "xmldom": "^0.6.0"
   },
   "devDependencies": {
-    "@types/jest": "^26.0.20",
+    "@types/jest": "^26.0.23",
     "@types/node": "^15.0.1",
     "@types/xmldom": "^0.1.30",
     "@typescript-eslint/parser": "^4.16.1",

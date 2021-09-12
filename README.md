@@ -2,7 +2,7 @@
 
 This action gets versions from csproj/vbproj.
 
-![test](https://github.com/naminodarie/get-net-sdk-project-versions-action/workflows/build-test/badge.svg?branch=master)
+![test](https://github.com/kzrnm/get-net-sdk-project-versions-action/workflows/build-test/badge.svg?branch=master)
 
 ## Input
 
@@ -36,7 +36,7 @@ This action gets versions from csproj/vbproj.
 ## Usage
 
 ```yml
-      - uses: naminodarie/get-net-sdk-project-versions-action@v1
+      - uses: kzrnm/get-net-sdk-project-versions-action@v1
         id: get-version
         with:
           proj-path: YourProject/YourProject.csproj

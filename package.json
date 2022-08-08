@@ -16,14 +16,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/naminodarie/get-net-sdk-project-versions-action.git"
+    "url": "git+https://github.com/kzrnm/get-net-sdk-project-versions-action.git"
   },
   "keywords": [
     "actions",
     "node",
     "setup"
   ],
-  "author": "naminodarie",
+  "author": "kzrnm",
   "license": "MIT",
   "dependencies": {
     "@actions/core": "^1.9.0",

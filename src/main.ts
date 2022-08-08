@@ -1,6 +1,6 @@
 import * as core from '@actions/core'
 import {promises as fs} from 'fs'
-import {DOMParser} from 'xmldom'
+import {DOMParser} from '@xmldom/xmldom'
 
 function put(name: string, value: string): void {
   core.info(`${name}: ${value}`)
@@ -109,7 +109,9 @@ async function run(): Promise<void> {
     put('file-version', fileVersion)
     put('informational-version', informationalVersion)
   } catch (error) {
-    core.setFailed(error.message)
+    if (error instanceof Error) {
+      core.setFailed(error.message)
+    }
   }
 }
 

@@ -87,7 +87,7 @@ class TestDefinition {
 async function loadYaml() {
   const testDefsPath = path.join(__dirname, 'testdata', 'success_list.yml')
   const testDefsStr = await fs.readFile(testDefsPath)
-  return yaml.safeLoad(testDefsStr)
+  return yaml.load(testDefsStr)
 }
 
 async function run() {

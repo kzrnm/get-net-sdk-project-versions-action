@@ -1,6 +1,6 @@
 {
   "name": "typescript-action",
-  "version": "1.0.0",
+  "version": "1.1.2",
   "private": true,
   "description": "get .NET SDK version project from csproj/vbproj.",
   "main": "lib/main.js",

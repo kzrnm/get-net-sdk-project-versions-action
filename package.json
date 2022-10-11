@@ -27,7 +27,7 @@
   "license": "MIT",
   "dependencies": {
     "@actions/core": "^1.9.0",
-    "@xmldom/xmldom": "^0.8.2"
+    "@xmldom/xmldom": "^0.8.3"
   },
   "devDependencies": {
     "@types/jest": "^28.1.6",

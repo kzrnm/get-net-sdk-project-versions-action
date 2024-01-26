@@ -4,6 +4,22 @@ This action gets versions from csproj/vbproj.
 
 ![test](https://github.com/kzrnm/get-net-sdk-project-versions-action/workflows/build-test/badge.svg?branch=master)
 
+## Usage
+
+```yml
+      - uses: kzrnm/get-net-sdk-project-versions-action@v2
+        id: get-version
+        with:
+          proj-path: YourProject/YourProject.csproj
+      - run: echo "${{steps.get-version.outputs.version}}"
+      - run: echo "${{steps.get-version.outputs.version-prefix}}" 
+      - run: echo "${{steps.get-version.outputs.version-suffix}}" 
+      - run: echo "${{steps.get-version.outputs.package-version}}" 
+      - run: echo "${{steps.get-version.outputs.assembly-version}}" 
+      - run: echo "${{steps.get-version.outputs.file-version}}" 
+      - run: echo "${{steps.get-version.outputs.informational-version}}" 
+```
+
 ## Input
 
 ### `proj-path`
@@ -32,22 +48,6 @@ This action gets versions from csproj/vbproj.
 ### `informational-version`
 
 `<InformationalVersion>`
-
-## Usage
-
-```yml
-      - uses: kzrnm/get-net-sdk-project-versions-action@v1
-        id: get-version
-        with:
-          proj-path: YourProject/YourProject.csproj
-      - run: echo "${{steps.get-version.outputs.version}}"
-      - run: echo "${{steps.get-version.outputs.version-prefix}}" 
-      - run: echo "${{steps.get-version.outputs.version-suffix}}" 
-      - run: echo "${{steps.get-version.outputs.package-version}}" 
-      - run: echo "${{steps.get-version.outputs.assembly-version}}" 
-      - run: echo "${{steps.get-version.outputs.file-version}}" 
-      - run: echo "${{steps.get-version.outputs.informational-version}}" 
-```
 
 ## Reference
 

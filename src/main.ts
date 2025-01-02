@@ -12,8 +12,15 @@ class DocumentWrapper {
   constructor(docElement: HTMLElement) {
     this.docElement = docElement
   }
-  getLastText(tagName: string): string | null {
+  getAnyText(tagName: string): string | null {
     const nodes = this.docElement.getElementsByTagName(tagName)
+    // eslint-disable-next-line @typescript-eslint/prefer-for-of
+    for (let i = 0; i < nodes.length; i++) {
+      const e = nodes[i]
+      if (!e.getAttribute('Condition')) {
+        return e.textContent
+      }
+    }
     return nodes.length > 0 ? nodes[nodes.length - 1].textContent : null
   }
 
@@ -39,16 +46,16 @@ async function run(): Promise<void> {
     core.debug(`proj-path=${projPath}`)
     let found = false
     const doc = await DocumentWrapper.createAsync(projPath)
-    let versionPrefix = doc.getLastText('VersionPrefix')
-    let versionSuffix = doc.getLastText('VersionSuffix')
-    let version = doc.getLastText('Version')
+    let versionPrefix = doc.getAnyText('VersionPrefix')
+    let versionSuffix = doc.getAnyText('VersionSuffix')
+    let version = doc.getAnyText('Version')
 
     if (version) {
       found = true
       const hyphenPos = version.indexOf('-')
       if (hyphenPos >= 0) {
-        versionPrefix = version.substr(0, hyphenPos)
-        versionSuffix = version.substr(hyphenPos + 1)
+        versionPrefix = version.substring(0, hyphenPos)
+        versionSuffix = version.substring(hyphenPos + 1)
       } else {
         versionPrefix = version
         versionSuffix = ''
@@ -69,28 +76,28 @@ async function run(): Promise<void> {
       }
     }
 
-    let packageVersion = doc.getLastText('PackageVersion')
+    let packageVersion = doc.getAnyText('PackageVersion')
     if (packageVersion) {
       found = true
     } else {
       packageVersion = version
     }
 
-    let assemblyVersion = doc.getLastText('AssemblyVersion')
+    let assemblyVersion = doc.getAnyText('AssemblyVersion')
     if (assemblyVersion) {
       found = true
     } else {
       assemblyVersion = versionPrefix
     }
 
-    let fileVersion = doc.getLastText('FileVersion')
+    let fileVersion = doc.getAnyText('FileVersion')
     if (fileVersion) {
       found = true
     } else {
       fileVersion = assemblyVersion
     }
 
-    let informationalVersion = doc.getLastText('InformationalVersion')
+    let informationalVersion = doc.getAnyText('InformationalVersion')
     if (informationalVersion) {
       found = true
     } else {

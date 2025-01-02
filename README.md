@@ -2,7 +2,7 @@
 
 This action gets versions from csproj/vbproj.
 
-![test](https://github.com/kzrnm/get-net-sdk-project-versions-action/workflows/build-test/badge.svg?branch=master)
+[![test](https://github.com/kzrnm/get-net-sdk-project-versions-action/actions/workflows/test.yml/badge.svg)](https://github.com/kzrnm/get-net-sdk-project-versions-action/actions/workflows/test.yml)
 
 ## Usage
 
